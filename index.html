@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will You Be Mine? ❤️</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #ffe6f0;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      max-width: 90%;
+      width: 500px;
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      color: #e91e63;
+      margin-bottom: 20px;
+      font-size: 2.2em;
+    }
+
+    p {
+      color: #555;
+      font-size: 1.1em;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      position: relative;
+      width: 100%;
+      height: 200px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      white-space: nowrap;
+      position: absolute;
+      transition: 0.2s;
+    }
+
+    #yesBtn {
+      background-color: #4CAF50;
+      color: white;
+      top: 50%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+    }
+
+    #yesBtn:hover {
+      background-color: #388e3c;
+    }
+
+    #noBtn {
+      background-color: #F44336;
+      color: white;
+      top: 50%;
+      left: 30%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    #result {
+      font-size: 24px;
+      color: #e91e63;
+      margin-top: 50px;
+      padding: 20px;
+      animation: fadeIn 2s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Floating hearts animation */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      color: #ff69b4;
+      font-size: 24px;
+      animation: floatUp 4s linear forwards;
+      z-index: 1;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Will you be my Girlfriend / Boyfriend? 😍</h1>
+    <p>I have one small question... but it might change my life forever 😉</p>
+    <div class="buttons">
+      <button id="yesBtn" onclick="showAcceptance()">Yes! 🥰</button>
+      <button id="noBtn">No 💔</button>
+    </div>
+    <div id="result" class="hidden"></div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const resultDiv = document.getElementById('result');
+    const buttonsDiv = document.querySelector('.buttons'); 
+
+    const messages = [
+      "Are you sure? 🤔",
+      "Think again! 😜",
+      "One more chance! 🙄",
+      "Please give me a chance! 🥺",
+      "You'll regret this! 😏",
+      "Last warning... 😬",
+      "You can’t escape love! 😂",
+      "Oh come on, really?! 😭",
+      "Unbelievable! 😅",
+      "Nope, you’re mine forever! 💘",
+      "You’re too cute to say no! 💕",
+      "Fine, I’ll cry with ice cream 🍦😭"
+    ];
+
+    // Move button on hover or touch/click
+    noBtn.addEventListener('mouseover', moveButton);
+    noBtn.addEventListener('click', moveButton);
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault(); // prevent mobile click triggering twice
+      moveButton();
+    });
+
+    function moveButton() {
+      const containerWidth = buttonsDiv.clientWidth;
+      const containerHeight = buttonsDiv.clientHeight;
+      const buttonWidth = noBtn.offsetWidth;
+      const buttonHeight = noBtn.offsetHeight;
+
+      const newX = Math.random() * (containerWidth - buttonWidth);
+      const newY = Math.random() * (containerHeight - buttonHeight);
+
+      noBtn.style.left = newX + 'px';
+      noBtn.style.top = newY + 'px';
+      noBtn.style.transform = 'translate(0, 0)';
+
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      noBtn.textContent = randomMessage;
+    }
+
+    function showAcceptance() {
+      document.querySelector('h1').classList.add('hidden');
+      document.querySelector('p').classList.add('hidden');
+      document.querySelector('.buttons').classList.add('hidden');
+
+      resultDiv.classList.remove('hidden');
+      resultDiv.innerHTML = `
+        <h2>Yay! 🎉</h2>
+        <p>You just made me the happiest person alive! ❤️</p>
+        <p>This is the start of our beautiful love story 💞</p>
+        <p>You & Me — forever together! 💍</p>
+      `;
+
+      // Start floating hearts
+      setInterval(createHeart, 300);
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+  </script>
+</body>
+</html>
